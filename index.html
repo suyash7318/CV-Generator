@@ -1,0 +1,466 @@
+<html>
+<head>
+   <link rel="stylesheet" href="style.css">
+   <title>Resume Builder</title>
+</head>
+
+<body>
+   <!-- HTML code -->
+   <div class="container" id="cv-form">
+      <h1 class="text-center my-2"><b>Resume Generator</b></h1><br><br>
+      <div class="row">
+         <div class="col-md-6">
+            <!--first coloumn-->
+            <h2><b>PERSONAL INFORMATION</b></h2><br>
+
+
+            <div class="form-group">
+               <label for="namefeild"><b>Your Name</b></label>
+               <input type="text" id="namefeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="contactfeild"><b>Your Contact Details</b></label>
+               <input type="text" id="contactfeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="adressfeild"><b>Your Address</b></label>
+               <textarea id="addressfeild" placeholder="Enter here" class="form-control" rows="10"></textarea>
+            </div>
+
+            <!--Photo Option-->
+            <div class="form-group mt-3">
+               <label for=""><b>Select your photo</b></label>
+               <input id="imgfeild" type="file" class="form-control">
+
+            </div>
+
+
+            <p class="text-secondary my-3">Important Links</p>
+
+            <div class="form-group mt-2">
+               <label for="fbfeild"><b>Facebook link</b></label>
+               <input type="text" id="fbfeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="Instafeild"><b>Instagram link</b></label>
+               <input type="text" id="instafeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="Lkfeild"><b>LinkedIn link</b></label>
+               <input type="text" id="linkedfeild" placeholder="Enter here" class="form-control">
+            </div>
+
+         </div>
+         <div class="col-md-6">
+            <!--Second coloumn-->
+            <h2><b>PROFESSIONAL INFORMATION</b></h2><br>
+
+            <!-- Objective -->
+            <div class="form-group mt-2">
+               <label for=""><b>Objective</b></label>
+               <textarea id="objecivefeild" rows="5" placeholder="Enter here" class="form-control"></textarea>
+            </div>
+
+            <!-- Academic Qualification -->
+            <div class="form-group mt-2" id="aq">
+               <label for=""><b>Academic Qualification</b></label>
+               <textarea placeholder="Enter here" class="form-control aqfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="aqAddButton">
+                  <button onclick="addNewAQFeild()" class="btn btn-primary btn-sm">Add</button> <!--ADD BUTTON -->
+               </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="form-group mt-2" id="ts">
+               <label for=""><b>Technical Skills</b></label>
+               <textarea placeholder="Enter here" class="form-control tsfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="tsAddButton">
+                  <button onclick="addNewTSFeild()" class="btn btn-primary btn-sm">Add</button> <!--ADD BUTTON -->
+              </div>
+            </div>
+
+
+            <!-- Project -->
+            <div class="form-group mt-2" id="pr">
+               <label for=""><b>Project</b></label>
+               <textarea placeholder="Enter here" class="form-control prfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="prAddButton">
+                  <button onclick="addNewPRFeild()" class="btn btn-primary btn-sm">Add</button> <!--ADD BUTTON -->
+               </div>
+            </div>
+
+            
+            <!-- Work Experience -->
+            <div class="form-group mt-2" id="we">
+               <label for=""><b>Work Experience</b></label>
+               <textarea placeholder="Enter here" class="form-control wefeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="weAddButton">
+                   <button onclick="addNewWEFeild()" class="btn btn-primary btn-sm">Add</button> <!--ADD BUTTON -->
+               </div>
+            </div>
+
+            
+
+
+         </div>
+      </div>
+      <div class="container text-center mt-3">
+         <button onclick="generateCV()" class="btn btn-primary btn-lg">Generate CV </button>
+      </div>
+   </div>
+
+   <!-- cv template-->
+   <div class="container" id="cv-template">
+      <div class="row">
+         <div class="col-md-6  text-center py-5 background">
+            <!--first col-->
+
+            <img
+               src="data:image/png;base64,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"
+               alt="" class="img-fluid myimg" id="imgTemplate">
+
+            <div class="container">
+               <p id="nameT1">Suyash Tambade</p>
+               <p id="contactT">+91 8788820253</p>
+               <p id="addressT">Sector-17, Vashi,Navi Mumbai, Maharashtra</p>
+
+               <hr />
+
+               <p>
+                  <a id="fbT" href="#1">https://www.facebook.com/</a>
+               </p>
+               <p>
+                  <a id="instaT" href="#1">https://www.instagram.com/</a>
+               </p>
+               <p>
+                  <a id="linkedT" href="#1">https://www.linkedin.com/</a>
+               </p>
+
+            </div>
+
+         </div>
+         <div class="col-md-6  py-5">
+            <!--second col-->
+            <h1 id="nameT2" class="text-center" style="font-weight: 980;">
+               Suyash Tambade
+            </h1>
+
+            <!--objective card-->
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Objective</h3>
+               </div>
+               <div class="card-body">
+                  <p id="objectiveT">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Iste esse minus aliquam voluptatum molestias cum dignissimos
+                     eligendi doloribus magni aliquid, incidunt repudiandae assumenda
+                     , quia laborum, veniam ipsam neque eveniet! Quas.
+                  </p>
+               </div>
+            </div>
+
+            <!--Academic Qualification-->
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Academic Qualification</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="aqT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Technical Skills</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="tsT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            <!-- Project -->
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Project</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="prT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+
+            <!--Work Experience-->
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Work Experience</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="weT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            <!-- Download Button -->
+            <div class="container mt-3 text-center">
+               <button onclick="printCV()" class="btn background">
+                  Download CV
+               </button>
+               <select id="template" onchange="changeTemplate()">
+                  <option value="1">Template 1</option>
+                  <option value="2">Template 2</option>
+                  <option value="3">Template 3</option>
+              </select>
+            </div>
+
+
+         </div>
+      </div>
+   </div>
+   <script src="script.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+<!-- <html>
+<head>
+   <link rel="stylesheet" href="style.css">
+   <title>Resume Builder</title>
+</head>
+
+<body>
+   
+   <div class="container" id="cv-form">
+      <h1 class="text-center my-2"><b>Resume Generator</b></h1><br><br>
+      <div class="row">
+         <div class="col-md-6">
+            
+            <h2><b>PERSONAL INFORMATION</b></h2><br>
+
+
+            <div class="form-group">
+               <label for="namefeild"><b>Your Name</b></label>
+               <input type="text" id="namefeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="contactfeild"><b>Your Contact Details</b></label>
+               <input type="text" id="contactfeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="adressfeild"><b>Your Address</b></label>
+               <textarea id="addressfeild" placeholder="Enter here" class="form-control" rows="10"></textarea>
+            </div>
+
+                        <div class="form-group mt-3">
+               <label for=""><b>Select your photo</b></label>
+               <input id="imgfeild" type="file" class="form-control">
+
+            </div>
+
+
+            <p class="text-secondary my-3">Important Links</p>
+
+            <div class="form-group mt-2">
+               <label for="fbfeild"><b>Facebook link</b></label>
+               <input type="text" id="fbfeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="Instafeild"><b>Instagram link</b></label>
+               <input type="text" id="instafeild" placeholder="Enter here" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+               <label for="Lkfeild"><b>LinkedIn link</b></label>
+               <input type="text" id="linkedfeild" placeholder="Enter here" class="form-control">
+            </div>
+
+         </div>
+         <div class="col-md-6">
+            
+            <h2><b>PROFESSIONAL INFORMATION</b></h2><br>
+
+            
+            <div class="form-group mt-2">
+               <label for=""><b>Objective</b></label>
+               <textarea id="objecivefeild" rows="5" placeholder="Enter here" class="form-control"></textarea>
+            </div>
+
+           
+            <div class="form-group mt-2" id="aq">
+               <label for=""><b>Academic Qualification</b></label>
+               <textarea placeholder="Enter here" class="form-control aqfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="aqAddButton">
+                  <button onclick="addNewAQFeild()" class="btn btn-primary btn-sm">Add</button> 
+               </div>
+            </div>
+
+         
+            <div class="form-group mt-2" id="ts">
+               <label for=""><b>Technical Skills</b></label>
+               <textarea placeholder="Enter here" class="form-control tsfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="tsAddButton">
+                  <button onclick="addNewTSFeild()" class="btn btn-primary btn-sm">Add</button>
+              </div>
+            </div>
+
+            
+            
+            <div class="form-group mt-2" id="pr">
+               <label for=""><b>Project</b></label>
+               <textarea placeholder="Enter here" class="form-control prfeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="prAddButton">
+                  <button onclick="addNewPRFeild()" class="btn btn-primary btn-sm">Add</button> 
+               </div>
+            </div>
+
+            
+            
+            <div class="form-group mt-2" id="we">
+               <label for=""><b>Work Experience</b></label>
+               <textarea placeholder="Enter here" class="form-control wefeild" rows="3"></textarea>
+               <div class="container text-center mt-2" id="weAddButton">
+                   <button onclick="addNewWEFeild()" class="btn btn-primary btn-sm">Add</button> 
+               </div>
+            </div>
+
+            
+
+
+         </div>
+      </div>
+      <div class="container text-center mt-3">
+         <button onclick="generateCV()" class="btn btn-primary btn-lg">Generate CV </button>
+      </div>
+   </div>
+
+   
+   <div class="container" id="cv-template">
+      <div class="row">
+         <div class="col-md-4 text-center py-5 background">
+            
+
+            <img
+               src="data:image/png;base64,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"
+               alt="" class="img-fluid myimg" id="imgTemplate">
+
+            <div class="container">
+               <p id="nameT1">Suyash Tambade</p>
+               <p id="contactT">+91 8788820253</p>
+               <p id="addressT">Sector-17, Vashi,Navi Mumbai, Maharashtra</p>
+
+               <hr />
+
+               <p>
+                  <a id="fbT" href="#1">https://www.facebook.com/</a>
+               </p>
+               <p>
+                  <a id="instaT" href="#1">https://www.instagram.com/</a>
+               </p>
+               <p>
+                  <a id="linkedT" href="#1">https://www.linkedin.com/</a>
+               </p>
+
+            </div>
+
+         </div>
+         <div class="col-md-8 py-5">
+            
+            <h1 id="nameT2" class="text-center" style="font-weight: 980;">
+               Suyash Tambade
+            </h1>
+
+            
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Objective</h3>
+               </div>
+               <div class="card-body">
+                  <p id="objectiveT">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Iste esse minus aliquam voluptatum molestias cum dignissimos
+                     eligendi doloribus magni aliquid, incidunt repudiandae assumenda
+                     , quia laborum, veniam ipsam neque eveniet! Quas.
+                  </p>
+               </div>
+            </div>
+
+            
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Academic Qualification</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="aqT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Technical Skills</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="tsT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Project</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="prT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+
+            
+            <div class="card mt-4">
+               <div class="card-header background">
+                  <h3>Work Experience</h3>
+               </div>
+               <div class="card-body">
+                  <ul id="weT">
+                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, exercitationem.</li>
+                  </ul>
+               </div>
+            </div>
+
+            
+            <div class="container mt-3 text-center">
+               <button onclick="printCV()" class="btn background">
+                  Download CV
+               </button>
+               <select id="template" onchange="changeTemplate()">
+                  <option value="1">Template 1</option>
+                  <option value="2">Template 2</option>
+                  <option value="3">Template 3</option>
+              </select>
+            </div>
+
+
+         </div>
+      </div>
+   </div>
+   <script src="script.js"></script>
+
+</body>
+
+</html> -->
